@@ -1,0 +1,29 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.core.container import AppContainer
+from app.router.search import search_router
+
+
+def create_app():
+    app = FastAPI(title="es-ojt", version="0.1", root_path="/api/v1")
+
+    container = AppContainer()
+    container.wire(packages=["app"])
+
+    app.container = container
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    app.include_router(search_router)
+
+    return app
+
+
+es_app = create_app()
