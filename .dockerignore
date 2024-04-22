@@ -1,0 +1,42 @@
+##### Virtual environments #####
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+##### Temporal #####
+.github/
+.cache/
+.venv/
+.local/
+
+##### Temp files #####
+.DS_Store
+.vscode/
+.idea/
+*.log
+*.swp
+
+##### Database #####
+database/
+
+##### Environmental files #####
+.env
+.env.local
+.env.*.local
+
+##### Dockerfile #####
+Dockerfile
+Dockerfile.dev
+
+##### Codes #####
+test/
+
+##### Documentation #####
+README.md
+Makefile
+docs/
+
+##### Settings #####
+poetry.lock
+*.yaml
