@@ -40,3 +40,7 @@ docs/
 ##### Settings #####
 poetry.lock
 *.yaml
+
+##### Data #####
+data/
+jupyter notebook/
