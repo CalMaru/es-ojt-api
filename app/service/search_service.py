@@ -1,5 +1,7 @@
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 
 
 class SearchService(metaclass=ABCMeta):
-    pass
+    @abstractmethod
+    def get_providers(self, provider_type):
+        pass

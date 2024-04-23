@@ -23,6 +23,14 @@ def create_app():
 
     app.include_router(search_router)
 
+    @app.on_event("startup")
+    async def handle_startup():
+        await container.ESClient.connect()
+
+    @app.on_event("shutdown")
+    async def handle_shutdown():
+        await container.ESClient.close()
+
     return app
 
 
