@@ -4,7 +4,7 @@ from os.path import join
 import pandas as pd
 
 from app.core.config import env_config
-from app.model.enum.provider_enum import ProviderType
+from app.model.enum.provider import ProviderType
 from app.service.search_service import SearchService
 from app.storage.storage_impl.csv_storage_impl import CSVStorageImpl
 

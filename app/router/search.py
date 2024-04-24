@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends
 from fastapi.encoders import jsonable_encoder
 from starlette.responses import JSONResponse
 
-from app.core.dependencies import get_search_service
-from app.model.enum.provider_enum import ProviderType
+from app.model.enum.provider import ProviderType
+from app.router.dependency.dependencies import get_search_service
 
 router = APIRouter(tags=["search"])
 
