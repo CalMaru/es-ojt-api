@@ -14,7 +14,8 @@ dependency-injector = "^4.41.0"
 gunicorn = "^22.0.0"
 uvicorn = "^0.29.0"
 pandas = "^2.2.2"
-elasticsearch = "7.16.0"
+elasticsearch = {version = "7.17.7", extras = ["async"]}
+aiohttp = "^3.9.5"
 
 
 [tool.poetry.group.dev.dependencies]
