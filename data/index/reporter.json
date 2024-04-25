@@ -7,11 +7,8 @@
     },
     "mappings": {
         "properties": {
-            "original": {
-                "type": "keyword"
-            },
-            "normalized": {
-                "type": "keyword"
+            "name": {
+                "type": "text"
             }
         }
     }

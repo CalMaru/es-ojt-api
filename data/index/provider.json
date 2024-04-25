@@ -8,9 +8,9 @@
     "mappings": {
         "properties": {
             "name": {
-                "type": "keyword"
+                "type": "text"
             },
-            "category": {
+            "type": {
                 "type": "keyword"
             },
             "location": {

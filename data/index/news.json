@@ -18,15 +18,34 @@
                 "type": "text"
             },
             "provider": {
-                "type": "keyword"
+                "type": "nested",
+                "properties": {
+                    "name": {
+                        "type": "text"
+                    },
+                    "type": {
+                        "type": "keyword"
+                    },
+                    "location": {
+                        "type": "keyword"
+                    }
+                }
             },
             "category": {
+                "type": "nested",
+                "properties": {
+                    "major": {
+                        "type": "keyword"
+                    },
+                    "minor": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "reporter": {
                 "type": "text"
             },
-            "byline": {
-                "type": "text"
-            },
-            "dateline": {
+            "date": {
                 "type": "date"
             }
         }
