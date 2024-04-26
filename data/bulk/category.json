@@ -1,0 +1,144 @@
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "외환"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "국제경제"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "무역"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "유통"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "자동차"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "서비스_쇼핑"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "금융_재테크"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "경제일반"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "부동산"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "취업_창업"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "산업_기업"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "반도체"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "증권_증시"}
+{"index": {"_index": "category"}}
+{"major": "경제", "minor": "자원"}
+{"index": {"_index": "category"}}
+{"major": "스포츠", "minor": "농구_배구"}
+{"index": {"_index": "category"}}
+{"major": "스포츠", "minor": "축구"}
+{"index": {"_index": "category"}}
+{"major": "스포츠", "minor": "골프"}
+{"index": {"_index": "category"}}
+{"major": "스포츠", "minor": "월드컵"}
+{"index": {"_index": "category"}}
+{"major": "스포츠", "minor": "야구"}
+{"index": {"_index": "category"}}
+{"major": "스포츠", "minor": "스포츠일반"}
+{"index": {"_index": "category"}}
+{"major": "스포츠", "minor": "올림픽_아시안게임"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "영화"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "전시_공연"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "생활"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "종교"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "미술_건축"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "방송_연예"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "문화일반"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "음악"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "요리_여행"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "학술_문화재"}
+{"index": {"_index": "category"}}
+{"major": "문화", "minor": "출판"}
+{"index": {"_index": "category"}}
+{"major": "IT_과학", "minor": "IT_과학일반"}
+{"index": {"_index": "category"}}
+{"major": "IT_과학", "minor": "인터넷_SNS"}
+{"index": {"_index": "category"}}
+{"major": "IT_과학", "minor": "모바일"}
+{"index": {"_index": "category"}}
+{"major": "IT_과학", "minor": "콘텐츠"}
+{"index": {"_index": "category"}}
+{"major": "IT_과학", "minor": "과학"}
+{"index": {"_index": "category"}}
+{"major": "IT_과학", "minor": "보안"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "경남"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "강원"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "충남"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "지역일반"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "경기"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "경북"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "제주"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "대전"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "충북"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "전북"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "대구"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "광주"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "울산"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "전남"}
+{"index": {"_index": "category"}}
+{"major": "지역", "minor": "부산"}
+{"index": {"_index": "category"}}
+{"major": "사회", "minor": "미디어"}
+{"index": {"_index": "category"}}
+{"major": "사회", "minor": "장애인"}
+{"index": {"_index": "category"}}
+{"major": "사회", "minor": "교육_시험"}
+{"index": {"_index": "category"}}
+{"major": "사회", "minor": "환경"}
+{"index": {"_index": "category"}}
+{"major": "사회", "minor": "날씨"}
+{"index": {"_index": "category"}}
+{"major": "사회", "minor": "노동_복지"}
+{"index": {"_index": "category"}}
+{"major": "사회", "minor": "여성"}
+{"index": {"_index": "category"}}
+{"major": "사회", "minor": "사건_사고"}
+{"index": {"_index": "category"}}
+{"major": "사회", "minor": "사회일반"}
+{"index": {"_index": "category"}}
+{"major": "사회", "minor": "의료_건강"}
+{"index": {"_index": "category"}}
+{"major": "국제", "minor": "중동_아프리카"}
+{"index": {"_index": "category"}}
+{"major": "국제", "minor": "중국"}
+{"index": {"_index": "category"}}
+{"major": "국제", "minor": "미국_북미"}
+{"index": {"_index": "category"}}
+{"major": "국제", "minor": "러시아"}
+{"index": {"_index": "category"}}
+{"major": "국제", "minor": "유럽_EU"}
+{"index": {"_index": "category"}}
+{"major": "국제", "minor": "아시아"}
+{"index": {"_index": "category"}}
+{"major": "국제", "minor": "국제일반"}
+{"index": {"_index": "category"}}
+{"major": "국제", "minor": "중남미"}
+{"index": {"_index": "category"}}
+{"major": "국제", "minor": "일본"}
