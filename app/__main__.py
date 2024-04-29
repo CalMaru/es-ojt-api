@@ -2,8 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.container import AppContainer
-from app.core.exception.exception_handler import exception_handler
+from app.core.exception.exception_handler import base_exception_handler
 from app.router.autocomplete import autocomplete_router
+from app.router.category import category_router
+from app.router.provider import provider_router
 from app.router.search import search_router
 
 
@@ -25,8 +27,10 @@ def create_app():
 
     app.include_router(autocomplete_router)
     app.include_router(search_router)
+    app.include_router(category_router)
+    app.include_router(provider_router)
 
-    exception_handler(app)
+    base_exception_handler(app)
 
     @app.on_event("startup")
     async def handle_startup():

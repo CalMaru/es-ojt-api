@@ -11,20 +11,17 @@ class EnvSettings(BaseSettings):
 
     # Elasticsearch Config
     ES_HOST: str = Field(default="localhost", env="ES_HOST")
-    ES_PORT: int = Field(default=90922, env="ES_PORT")
-    ES_USERNAME: str = Field(default="42maru", env="ES_USERNAME")
+    ES_PORT: int = Field(default=9200, env="ES_PORT")
+    ES_USERNAME: str = Field(default="elastic", env="ES_USERNAME")
     ES_PASSWORD: str = Field(default="42maru", env="ES_PASSWORD")
 
     # Data Files
     DATA_PATH: str = Field(default="/file/es-ojt", env="DATA_PATH")
 
     @property
-    def ES_CONFIG(self) -> list[dict]:
-        es_host = dict()
-        es_host["host"] = self.ES_HOST
-        es_host["port"] = self.ES_PORT
-        es_host["scheme"] = "http"
-        return [es_host]
+    def ES_CONFIG(self) -> dict:
+        return {"host": "localhost", "port": 9200}
+        # return f"http://{self.ES_HOST}:{self.ES_PORT}"
 
 
 env_config = EnvSettings()

@@ -62,6 +62,81 @@
 - response
   - 
 
-
 ### Press API
+
+---
+
+## 2024-04-29 기준
+
+### 구현 방식
+
+- get next scroll API
+  - Search After Pagenation 방식 사용
+    - 이전 페이지의 마지막 문서 값을 기반으로 쿼리 실행
+  - Point In Time 사용
+
+### get option API
+
+- url: `/search/option`
+- method: GET
+- response
+  - categories, list, 분류 리스트
+    - key, string, 분류 기준
+    - values, list(string), 분류 리스트
+  - providers, list, 언론사 리스트
+    - key, string, 언론사 분류 기준
+    - values, list(string), 언론사 리스트
+
+### get next scroll API
+
+- url: `/search/scroll`
+- method: GET
+- 나머지 정의 필요
+
+### Search API  - naver
+
+- url: `/search/naver`
+- method: GET
+- query parameters
+  - query
+    - (required, string) 검색어 쿼리
+  - reporter
+    - (optional, string) 기자명 쿼리 
+  - start_date
+    - (required, datetime) 뉴스 조회 시작일
+    - format: `Y-%m-%d`
+  - end_date
+    - (required, datetime) 뉴스 조회 마지막일
+    - format: `Y-%m-%d`
+  - category_type
+    - (required, string) 뉴스 분류 유형
+    - available types: all, 유형별, 분야별, 가나다순
+      - all: 전체
+      - category: 유형별
+      - detail: 분야별
+      - alphabetic: 가나다순
+  - category_name
+    - (optional, string) 뉴스 분류 이름
+    - category_type이 detail, alphabetic일 경우 category_name을 입력해야 함
+  - provider_type
+    - (required, string) 언론사 유형
+    - available types: all, 유형별, 언론사 분류순, 지역언론사별, 가나다순
+      - all: 전체
+      - category: 유형별
+      - detail: 언론사 분류순
+      - local: 지역언론사별
+      - alphabetic: 가나다순
+  - provider_name
+    - (optional, string) 언론사 이름
+    - provider_type이 detail, local, alphabetic일 경우 provider_name을 입력해야 함
+  - size
+    - (optional, int) 뉴스 수
+    - 입력하지 않는 경우 기본 값으로 10개 반환
+
+- response
+  - 정의 필요
+
+### ㅇㅇㅇ
+
+
 

@@ -3,6 +3,8 @@ from dependency_injector import containers, providers
 from app.core.config import env_config
 from app.elastic_search.engine.client import AsyncESClient
 from app.service.impl.autocomplete_service_impl import AutocompleteServiceImpl
+from app.service.impl.category_service_impl import CategoryServiceImpl
+from app.service.impl.provider_service_impl import ProviderServiceImpl
 from app.service.impl.search_service_impl import SearchServiceImpl
 from app.storage.storage_impl.csv_storage_impl import CSVStorageImpl
 
@@ -26,4 +28,14 @@ class AppContainer(containers.DeclarativeContainer):
     SearchService = providers.Singleton(
         SearchServiceImpl,
         csv_storage=CSVStorage,
+    )
+
+    CategoryService = providers.Singleton(
+        CategoryServiceImpl,
+        es_client=ESClient,
+    )
+
+    ProviderService = providers.Singleton(
+        ProviderServiceImpl,
+        es_client=ESClient,
     )
