@@ -1,0 +1,48 @@
+---
+sidebar_position: 2
+slug: /es-ojt/@docusaurus/search-api
+---
+
+# Search API
+
+import APITable from '@site/src/components/APITable';
+
+뉴스 검색에 사용되는 API입니다.
+
+## 기본 정보 {#request-code-info}
+
+| 메서드 | URL |
+| --- | --- |
+| GET | /search |
+
+## 요청 {#request}
+
+### 쿼리 파라미터 {#query-parameters}
+
+:::tip
+
+쿼리 파라미터 내부의 유형 관련 필드 `category_type`, `category_name`, 언론사 관련 필드 `provider_type`, `provider_name`에 대한 자세한 정보는 [Get Option API](../@docusaurus/get-option-api)를 참고하세요.
+
+:::
+
+| Field | Type | Description | Required |
+| --- | --- | --- | --- |
+| query | String | 검색어 | O |
+| reporter | String | 기자명 | X |
+| start_date | String | 뉴스 검색 기간 - 시작일<br /><br />**포맷**: `YYYY-MM-DD`<br />**기본값**: `2021-01-01` | X |
+| end_date | String | 뉴스 검색 기간 - 종료일<br /><br />**포맷**: `YYYY-MM-DD`<br />**기본값**: `2021-09-30` | X |
+| category_type | String | 뉴스 분류 기준<br /><br />**입력 가능 항목**: `all`, `category`, `detail`, `alphabetic` | O |
+| category_name | String | 뉴스 분류 이름<br /><br />⚠️ category_type이 `detail`, `alphabetic`일 경우 필수로 입력 | X |
+| provider_type | String | 언론사 유형<br /><br />**입력 가능 항목**: `all`, `category`, `detail`, `local`, `alphabetic` | O |
+| provider_name | String | 언론사 `이름` 혹은 언론사 `유형 이름`<br /><br />⚠️ category_type이 `category`, `detail`, `local`, `alphabetic`일 경우 필수로 입력<br />⚠️ category_type이 `category`일 경우 언론사 유형 이름 명시 | X |
+
+## 응답 {#response}
+
+| Field | Type | Description |
+| --- | --- | --- |
+| query | list (`Category`) | 뉴스 분류 리스트 |
+| categories.key | string | 분류 기준 |
+| categories.values | list (string) | 분류 리스트 |
+| providers | list (`Provider`) | 언론사 리스트 |
+| providers.key | string | 언론사 분류 기준 |
+| providers.values | list (string) | 언론사 리스트 |
