@@ -1,0 +1,29 @@
+name: 🚀 기능 개발 계획 업데이트
+description: 기능 개발 예정이신가요? 😃
+title: "[Feature]: "
+labels: [enhancement]
+body:
+
+- type: textarea
+  attributes:
+    label: 기능 설명
+    description: 구현할 기능을 간단하게 설명해주세요 ✨
+    placeholder: |
+      - A api 구현
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: 추가 사항
+    description: |
+      Links? References? Ideas? 노션 링크, 회의록 링크 등 기능 구현과 관련된 링크를 첨부해주세요 🔗
+  validations:
+    required: false
+
+- type: checkboxes
+  attributes:
+    label: 개발 계획 추가 전 체크 리스트 🚀
+    options:
+      - label: 기능에 대한 설명을 성실하게 기입했나요?
+        required: true
