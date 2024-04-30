@@ -1,4 +1,4 @@
-from app.elastic_search.engine.client import AsyncESClient
+from app.elastic_search.client import AsyncESClient
 from app.model.dto.category_dto import Category
 from app.model.enum.index import Index
 from app.service.category_service import CategoryService

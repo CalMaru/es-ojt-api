@@ -1,6 +1,6 @@
 from fastapi import Request
 
-from app.elastic_search.engine.client import AsyncESClient
+from app.elastic_search.client import AsyncESClient
 from app.service.category_service import CategoryService
 from app.service.provider_service import ProviderService
 from app.service.search_service import SearchService

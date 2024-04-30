@@ -1,4 +1,4 @@
-from app.elastic_search.engine.client import AsyncESClient
+from app.elastic_search.client import AsyncESClient
 from app.service.provider_service import ProviderService
 
 

@@ -1,5 +1,3 @@
-from typing import Union
-
 from elasticsearch import AsyncElasticsearch
 
 from app.core.config import env_config

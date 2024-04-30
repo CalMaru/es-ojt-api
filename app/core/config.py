@@ -15,9 +15,6 @@ class EnvSettings(BaseSettings):
     ES_USERNAME: str = Field(default="elastic", env="ES_USERNAME")
     ES_PASSWORD: str = Field(default="42maru", env="ES_PASSWORD")
 
-    # Data Files
-    DATA_PATH: str = Field(default="/file/es-ojt", env="DATA_PATH")
-
     @property
     def ES_CONFIG(self) -> dict:
         return {"host": "localhost", "port": 9200}
