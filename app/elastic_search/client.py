@@ -1,17 +1,18 @@
 from elasticsearch import AsyncElasticsearch
 
-from app.core.config import env_config
-from app.core.logging import logger
+from app.core.logger.elasticsearch_logger import es_logger
 from app.model.enum.index import Index
 
 
 class AsyncESClient:
     def __init__(self):
-        self.client = AsyncElasticsearch(hosts="http://localhost:9200",
-                                         basic_auth=("elastic", "42maru"),)
+        self.client = AsyncElasticsearch(
+            hosts="http://localhost:9200",
+            basic_auth=("elastic", "42maru"),
+        )
+        self.logger = es_logger
 
     async def connect(self):
-        print(f"username: {env_config.ES_USERNAME}")
         self.client = AsyncElasticsearch(
             hosts="http://localhost:9200",
             timeout=60,
@@ -22,14 +23,13 @@ class AsyncESClient:
         )
 
         ping_result = await self.client.ping()
-        print(f"ping_result: {ping_result}")
-        logger.info(f"Connected to Elasticsearch: {ping_result}")
+        self.logger.connect(ping_result)
 
     async def close(self):
         if self.client:
             await self.client.close()
             self.client = None
-            logger.info("Closed Elasticsearch client")
+            self.logger.close()
 
     async def search(self, body: dict, index: Index, params: dict):
         if self.client:
