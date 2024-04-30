@@ -1,7 +1,7 @@
 FROM python:3.9.5
 LABEL authors="CalMaru <cal@42maru.ai>"
 
-ENV HOME /es-ojt
+ENV HOME /es-ojt-api
 RUN mkdir -p ${HOME}
 WORKDIR ${HOME}
 

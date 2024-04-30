@@ -10,19 +10,19 @@ else
 endif
 
 # --------------------------
-.PHONY: ojt dev down stop help
+.PHONY: es-ojt-api down stop help
 
-ojt: ## Start ES-OJT container.
+es-ojt-api: ## Start ES-OJT container.
 	@#echo "You can use 'make up dev=true' to run with development settings"
 	$(DOCKER_COMPOSE_COMMAND) ${COMPOSE} up -d --build
 
-down: ## Down ES-OJT container.
+down: ## Down es-ojt-api container.
 	$(DOCKER_COMPOSE_COMMAND) ${COMPOSE} down
 
-stop: ## Stop ES-OJT container.
+stop: ## Stop es-ojt-api container.
 	$(DOCKER_COMPOSE_COMMAND) ${COMPOSE} stop
 
 help: ## Show this help.
-	@echo "Make Annotator with docker-compose files"
+	@echo "Make es-ojt-api with docker-compose files"
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m (default: help)\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 	@echo ""

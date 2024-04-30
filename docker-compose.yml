@@ -1,16 +1,15 @@
 version: "3.8"
 services:
-  es-ojt:
-    container_name: es-ojt
+  es-ojt-api:
+    container_name: es-ojt-api
     build:
       dockerfile: Dockerfile
     environment:
       TZ: Asia/Seoul
     env_file:
-      - es-ojt.env
+      - es-ojt-api.env
     volumes:
-      - ./app:/es-ojt/app
-      - ./data:/file/es-ojt
+      - ./app:/es-ojt-api/app
       - ./gunicorn.config.py:/es-ojt/gunicorn.config.py:ro
     ports:
       - "8000:8000"
