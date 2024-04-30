@@ -10,7 +10,7 @@ services:
       - es-ojt-api.env
     volumes:
       - ./app:/es-ojt-api/app
-      - ./gunicorn.config.py:/es-ojt/gunicorn.config.py:ro
+      - ./gunicorn.config.py:/es-ojt-api/gunicorn.config.py:ro
     ports:
       - "8000:8000"
     command: gunicorn -n es-ojt -c gunicorn.config.py
