@@ -16,6 +16,7 @@ uvicorn = "0.20.0"
 pandas = "^2.2.2"
 elasticsearch = {version = "7.17.7", extras = ["async"]}
 aiohttp = "^3.9.5"
+nest-asyncio = "^1.6.0"
 
 
 [tool.poetry.group.dev.dependencies]

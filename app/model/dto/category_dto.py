@@ -6,8 +6,8 @@ DTO
 
 
 class Category(BaseModel):
-    name: str
-    types: str
+    major: str
+    minor: str
 
 
 """
