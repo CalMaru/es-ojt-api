@@ -1,8 +1,6 @@
-from pydantic import BaseModel
+from collections import defaultdict
 
-"""
-DTO
-"""
+from pydantic import BaseModel
 
 
 class Category(BaseModel):
@@ -10,10 +8,21 @@ class Category(BaseModel):
     minor: str
 
 
-"""
-Response
-"""
+class CategoryDDD(BaseModel):
+    all: str
+    category: list[str]
+    detail: dict[list[str]]
+    alphabetic: dict[str]
 
+    @classmethod
+    def from_categories(cls, majors: list[str], categories: list[Category]):
+        detail = defaultdict(list)
+        for category in categories:
+            detail[category.major].append(category.minor)
 
-class CategoryListResponse(BaseModel):
-    categories: list[Category]
+        return cls(
+            all="all",
+            category=majors,
+            detail=detail,
+            alphabetic=None,
+        )

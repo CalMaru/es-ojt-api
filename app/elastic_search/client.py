@@ -13,5 +13,8 @@ class AsyncElasticsearchClient:
     async def close(self):
         await self.client.close()
 
-    async def search(self, body: dict, index: Index, params: dict):
+    async def search(self, body: dict, index: Index, params: dict = None):
         return await self.client.search(body=body, index=index.lower(), params=params)
+
+    # async def aaa(self):
+    #     aa = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"]
