@@ -10,7 +10,7 @@ class EnvSettings(BaseSettings):
     API_THREADS: int = Field(default=6, env="API_THREADS")
 
     # LOG Setting
-    LOG_LEVEL: str = Field(default="DEBUG", env="LOG_LEVEL")
+    LOG_LEVEL: str = Field(default="INFO", env="LOG_LEVEL")
     LOG_PATH: str = Field(default="/es-ojt-api/log", env="LOG_PATH")
     IS_LOG_SAVING: bool = Field(default=False, env="IS_LOG_SAVING")
 
@@ -22,8 +22,11 @@ class EnvSettings(BaseSettings):
 
     @property
     def ES_CONFIG(self) -> dict:
-        return {"host": "localhost", "port": 9200}
-        # return f"http://{self.ES_HOST}:{self.ES_PORT}"
+        return {
+            "hosts": f"http://{self.ES_HOST}:{self.ES_PORT}",
+            "http_auth": (self.ES_USERNAME, self.ES_PASSWORD),
+            "scheme": "http",
+        }
 
 
 env_config = EnvSettings()
