@@ -14,4 +14,4 @@ services:
       - ./gunicorn.config.py:/es-ojt-api/gunicorn.config.py:ro
     ports:
       - "8000:8000"
-    command: gunicorn -n es-ojt -c gunicorn.config.py
+    command: gunicorn -n es-ojt-api -c gunicorn.config.py

@@ -12,7 +12,7 @@ endif
 # --------------------------
 .PHONY: es-ojt-api down stop help
 
-es-ojt-api: ## Start ES-OJT container.
+es-ojt-api: ## Start es-ojt-api container.
 	@#echo "You can use 'make up dev=true' to run with development settings"
 	$(DOCKER_COMPOSE_COMMAND) ${COMPOSE} up -d --build
 
