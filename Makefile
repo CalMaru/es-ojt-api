@@ -10,11 +10,16 @@ else
 endif
 
 # --------------------------
-.PHONY: es-ojt-api down stop help
+.PHONY: es-ojt-api dev-all dev down stop help
 
 es-ojt-api: ## Start es-ojt-api container.
-	@#echo "You can use 'make up dev=true' to run with development settings"
 	$(DOCKER_COMPOSE_COMMAND) ${COMPOSE} up -d --build
+
+dev-all: ## Start es-ojt-api and elasticsearch container.
+	$(DOCKER_COMPOSE_COMMAND) -f docker-compose-dev-all.yml up -d --build
+
+dev: ## Start es-ojt-api container.
+	$(DOCKER_COMPOSE_COMMAND) -f docker-compose-dev.yml up -d --build
 
 down: ## Down es-ojt-api container.
 	$(DOCKER_COMPOSE_COMMAND) ${COMPOSE} down

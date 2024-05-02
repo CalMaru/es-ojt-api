@@ -36,7 +36,6 @@ def create_app():
 
     base_exception_handler(app)
 
-
     return app
 
 

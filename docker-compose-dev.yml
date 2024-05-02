@@ -1,4 +1,9 @@
 version: "3.8"
+
+networks:
+  elastic:
+    driver: bridge
+
 services:
   es-ojt-api:
     container_name: es-ojt-api
@@ -14,5 +19,6 @@ services:
       - ./gunicorn.config.py:/es-ojt-api/gunicorn.config.py:ro
     ports:
       - "8000:8000"
-    network_mode: host
     command: gunicorn -n es-ojt-api -c gunicorn.config.py
+    networks:
+      - elastic
