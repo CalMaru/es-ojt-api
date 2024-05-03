@@ -1,7 +1,7 @@
 from dependency_injector import containers, providers
 
 from app.core.config import env_config
-from app.service.impl.category_service_impl import CategoryServiceImpl
+from app.service.impl.option_service_impl import OptionServiceImpl
 
 
 class AppContainer(containers.DeclarativeContainer):
@@ -10,6 +10,6 @@ class AppContainer(containers.DeclarativeContainer):
     config = providers.Configuration()
     config.from_dict(env_config.model_dump())
 
-    CategoryService = providers.Singleton(
-        CategoryServiceImpl,
+    OptionService = providers.Singleton(
+        OptionServiceImpl,
     )
