@@ -3,10 +3,13 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+from app.router.dto.search import SearchRequest
+
 
 class TemplateName(Enum):
     GET_UNIQUE_FIELDS = "get_unique_fields"
     GET_ALL_ITEMS = "get_all_template"
+    SEARCH_NEWS = "..."
 
 
 class Template(BaseModel):
@@ -35,3 +38,12 @@ class GetAllItems(Template):
     @classmethod
     def from_null(cls):
         return cls(id=TemplateName.GET_ALL_ITEMS)
+
+
+class SearchNews(Template):
+    @classmethod
+    def from_request(cls, request: SearchRequest):
+        return cls(
+            id=TemplateName.SEARCH_NEWS,
+            params=request.params,
+        )

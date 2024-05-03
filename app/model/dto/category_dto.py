@@ -3,6 +3,14 @@ from collections import OrderedDict, defaultdict
 from pydantic import BaseModel
 
 
+class CategoryType(BaseModel):
+    type: str
+
+    @classmethod
+    def from_type(cls, type: str):
+        return cls(type=type)
+
+
 class Category(BaseModel):
     major: str
     minors: list[str]

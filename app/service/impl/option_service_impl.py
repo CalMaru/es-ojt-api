@@ -3,7 +3,7 @@ from app.elastic_search.config.index import Index
 from app.elastic_search.config.template import GetAllItems
 from app.model.dto.category_dto import Categories, NewsCategories
 from app.model.dto.provider_dto import NewsProviders, Providers
-from app.router.response.option import GetOptionsResponse
+from app.router.dto.option import GetOptionsResponse
 from app.service.option_service import OptionService
 
 
