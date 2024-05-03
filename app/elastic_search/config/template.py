@@ -3,12 +3,13 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+from app.elastic_search.config.parameter import AutocompleteParams
 from app.router.dto.search import SearchRequest
 
 
 class TemplateName(Enum):
-    GET_UNIQUE_FIELDS = "get_unique_fields"
     GET_ALL_ITEMS = "get_all_template"
+    AUTOCOMPLETE = "autocomplete"
     SEARCH_NEWS = "..."
 
 
@@ -25,19 +26,19 @@ class Template(BaseModel):
         return body
 
 
-class GetUniqueFields(Template):
-    @classmethod
-    def from_field(cls, field: str):
-        return cls(
-            id=TemplateName.GET_UNIQUE_FIELDS,
-            params={"field": field},
-        )
-
-
 class GetAllItems(Template):
     @classmethod
     def from_null(cls):
         return cls(id=TemplateName.GET_ALL_ITEMS)
+
+
+class Autocomplete(Template):
+    @classmethod
+    def from_params(cls, params: AutocompleteParams):
+        return cls(
+            id=TemplateName.AUTOCOMPLETE,
+            params=params,
+        )
 
 
 class SearchNews(Template):
