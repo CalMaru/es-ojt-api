@@ -4,14 +4,6 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class ProviderType(BaseModel):
-    type: str
-
-    @classmethod
-    def from_type(cls, type: str):
-        return cls(type=type)
-
-
 class Provider(BaseModel):
     name: str
     type: str

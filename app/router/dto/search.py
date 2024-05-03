@@ -1,11 +1,13 @@
 from datetime import datetime
 from typing import Optional, Union
 
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 
-from app.model.dto.category_dto import CategoryType
+from app.core.exception.exception import BadRequestError
+from app.core.status_code import StatusCode
 from app.model.dto.news_dto import News
-from app.model.dto.provider_dto import ProviderType
+from app.model.enum.category_enum import CategoryType
+from app.model.enum.provider_enum import ProviderType
 
 
 class SearchRequest(BaseModel):
@@ -13,14 +15,37 @@ class SearchRequest(BaseModel):
     reporter: Optional[str]
     start_date: datetime
     end_date: datetime
-    category_type: CategoryType
+    category_type: str
     category_name: Optional[str]
-    provider_type: ProviderType
+    provider_type: str
     provider_name: Optional[str]
 
     @property
     def params(self) -> dict:
         return {}
+
+    @model_validator(mode="after")
+    def validate_date(self):
+        system_start_date = datetime.strptime("2021-01-01", "%Y-%m-%d")
+        system_end_date = datetime.strptime("2021-09-30", "%Y-%m-%d")
+
+        if self.start_date < system_start_date:
+            raise BadRequestError(StatusCode.C21001)
+
+        if self.end_date > system_end_date:
+            raise BadRequestError(StatusCode.C21002)
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_options(self):
+        if CategoryType.has_key(self.category_type) is False:
+            raise BadRequestError(StatusCode.C21003)
+
+        if ProviderType.has_key(self.provider_type) is False:
+            raise BadRequestError(StatusCode.C21004)
+
+        return self
 
     @classmethod
     def from_request(
@@ -44,9 +69,9 @@ class SearchRequest(BaseModel):
             reporter=reporter,
             start_date=datetime.strptime(start_date, "%Y-%m-%d"),
             end_date=datetime.strptime(end_date, "%Y-%m-%d"),
-            category_type=CategoryType.from_type(category_type),
+            category_type=category_type,
             category_name=category_name,
-            provider_type=ProviderType.from_type(provider_type),
+            provider_type=provider_type,
             provider_name=provider_name,
         )
 
