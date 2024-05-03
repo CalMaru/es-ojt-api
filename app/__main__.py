@@ -7,6 +7,7 @@ from app.core.container import AppContainer
 from app.core.exception.exception_handler import base_exception_handler
 from app.elastic_search.client import AsyncElasticsearchClient
 from app.router.option import option_router
+from app.router.search import search_router
 
 
 @asynccontextmanager
@@ -33,6 +34,7 @@ def create_app():
     )
 
     app.include_router(option_router)
+    app.include_router(search_router)
 
     base_exception_handler(app)
 

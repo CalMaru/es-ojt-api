@@ -2,6 +2,7 @@ from dependency_injector import containers, providers
 
 from app.core.config import env_config
 from app.service.impl.option_service_impl import OptionServiceImpl
+from app.service.impl.search_service_impl import SearchServiceImpl
 
 
 class AppContainer(containers.DeclarativeContainer):
@@ -12,4 +13,8 @@ class AppContainer(containers.DeclarativeContainer):
 
     OptionService = providers.Singleton(
         OptionServiceImpl,
+    )
+
+    SearchService = providers.Singleton(
+        SearchServiceImpl,
     )
