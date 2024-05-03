@@ -1,27 +1,28 @@
 from app.elastic_search.client import AsyncElasticsearchClient
-from app.model.dto.category_dto import Category, NewsCategories
-from app.model.enum.index import Index
+from app.elastic_search.config.index import Index
+from app.elastic_search.config.template import GetAllItems
+from app.model.dto.category_dto import Categories, NewsCategories
+from app.model.dto.provider_dto import NewsProviders, Providers
+from app.router.response.option import GetOptionsResponse
 from app.service.option_service import OptionService
 
 
 class OptionServiceImpl(OptionService):
-    async def get_options(self, es_client: AsyncElasticsearchClient):
-        get_unique_categories_body = {"id": "get_unique_fields", "params": {"field": "major"}}
+    async def get_options(self, es_client: AsyncElasticsearchClient) -> GetOptionsResponse:
+        categories = await self.get_all_categories(es_client)
+        news_categories = NewsCategories.from_categories(categories)
 
-        get_all_body = {"id": "get_all_template"}
+        providers = await self.get_all_providers(es_client)
+        news_providers = NewsProviders.from_providers(providers)
 
-        result = await es_client.search_template(get_unique_categories_body, Index.CATEGORY)
-        buckets = result["aggregations"]["unique_fields"]["buckets"]
-        majors = [bucket["key"] for bucket in buckets]
+        return GetOptionsResponse.from_options(news_categories, news_providers)
 
-        category_result = await es_client.search_template(get_all_body, Index.CATEGORY)
-        categories = [Category(**hit["_source"]) for hit in category_result["hits"]["hits"]]
+    @staticmethod
+    async def get_all_categories(es_client: AsyncElasticsearchClient) -> Categories:
+        result = await es_client.search_template(GetAllItems.from_null(), Index.CATEGORY)
+        return Categories.from_hits(result["hits"]["hits"])
 
-        news_categories = NewsCategories.from_categories(majors, categories)
-        return news_categories
-
-        # alphabetic_body = await es_client.search()
-
-        # provider_body = {"id": "get_providers_template"}
-        # provider_result = await es_client.search(body, Index.PROVIDER)
-        # providers = [Provider(**hit["_source"]) for hit in provider_result["hits"]["hits"]]
+    @staticmethod
+    async def get_all_providers(es_client: AsyncElasticsearchClient) -> Providers:
+        result = await es_client.search_template(GetAllItems.from_null(), Index.PROVIDER)
+        return Providers.from_hits(result["hits"]["hits"])

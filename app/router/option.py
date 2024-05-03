@@ -3,11 +3,12 @@ from fastapi.encoders import jsonable_encoder
 from starlette.responses import JSONResponse
 
 from app.router.dependency.dependencies import get_es_client, get_option_service
+from app.router.response.option import GetOptionsResponse
 
 router = APIRouter(tags=["option"])
 
 
-@router.get("/category")
+@router.get("/option", response_model=GetOptionsResponse)
 async def get_options(
     es_client=Depends(get_es_client),
     option_service=Depends(get_option_service),

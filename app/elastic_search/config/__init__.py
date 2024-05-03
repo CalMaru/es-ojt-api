@@ -10,15 +10,3 @@ class StrEnum(str, Enum):
 
     def __repr__(self):
         return self.name
-
-
-class KorEnum(Enum):
-    @property
-    def kor(self):
-        return self.value
-
-    def __str__(self):
-        return self.name
-
-    def __repr__(self):
-        return self.name

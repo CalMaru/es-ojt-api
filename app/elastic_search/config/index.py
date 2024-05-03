@@ -1,6 +1,6 @@
 from enum import auto
 
-from app.model.enum import StrEnum
+from app.elastic_search.config import StrEnum
 
 
 class Index(StrEnum):
