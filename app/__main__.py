@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.container import AppContainer
 from app.core.exception.exception_handler import base_exception_handler
+from app.core.middleware import middleware_handler
 from app.elastic_search.client import AsyncElasticsearchClient
 from app.router.option import option_router
 from app.router.search import search_router
@@ -37,6 +38,8 @@ def create_app():
     app.include_router(search_router)
 
     base_exception_handler(app)
+
+    middleware_handler(app)
 
     return app
 
