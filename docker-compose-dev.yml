@@ -1,8 +1,9 @@
 version: "3.8"
 
 networks:
-  elastic:
-    driver: bridge
+  outside:
+    name: es-ojt-elasticsearch_elastic
+    external: true
 
 services:
   es-ojt-api:
@@ -21,4 +22,4 @@ services:
       - "8000:8000"
     command: gunicorn -n es-ojt-api -c gunicorn.config.py
     networks:
-      - elastic
+      - outside
