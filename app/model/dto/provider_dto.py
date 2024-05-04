@@ -1,7 +1,10 @@
 from collections import OrderedDict, defaultdict
 from typing import Optional
 
+import hgtk
 from pydantic import BaseModel
+
+from app.elastic_search.config.hangeul import Hangeul
 
 
 class Provider(BaseModel):
@@ -63,6 +66,23 @@ class Providers(BaseModel):
 
         return local
 
+    @property
+    def alphabetic(self) -> dict:
+        alphabetic = defaultdict(list)
+        jaeums, english = Hangeul.JAEUMS.value, "abc"
+        for provider in self.providers:
+            first_jaeum = hgtk.text.decompose(provider.name)[0]
+            if first_jaeum in jaeums:
+                alphabetic[first_jaeum].append(provider.name)
+            else:
+                alphabetic[english].append(provider.name)
+
+        alphabetic = OrderedDict(sorted(alphabetic.items()))
+        for name in alphabetic.keys():
+            alphabetic[name].sort()
+
+        return alphabetic
+
 
 class NewsProviders(BaseModel):
     """언론사 유형별 리스트
@@ -71,14 +91,14 @@ class NewsProviders(BaseModel):
         category (:obj:`list[str]`): 유형별
         detail (dict): 언론사 분류순
         local (dict): 지역별 언론사
-        # alphabetic () : 가나다순
+        alphabetic (dict) : 가나다순
     """
 
     all: str
     category: list[str]
     detail: dict
     local: dict
-    # alphabetic
+    alphabetic: dict
 
     @classmethod
     def from_providers(cls, providers: Providers):
@@ -87,4 +107,5 @@ class NewsProviders(BaseModel):
             category=providers.category,
             detail=providers.detail,
             local=providers.local,
+            alphabetic=providers.alphabetic,
         )

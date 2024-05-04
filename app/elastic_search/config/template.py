@@ -8,7 +8,7 @@ from app.router.dto.search import SearchRequest
 
 
 class TemplateName(Enum):
-    GET_ALL_ITEMS = "get_all_template"
+    GET_ALL_ITEMS = "get_all_items"
     AUTOCOMPLETE = "autocomplete"
     SEARCH_NEWS = "..."
 
