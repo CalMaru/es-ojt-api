@@ -10,6 +10,7 @@ from app.router.dto.search import SearchRequest
 class TemplateName(Enum):
     GET_ALL_ITEMS = "get_all_items"
     AUTOCOMPLETE_REPORTER = "autocomplete_reporter"
+    AUTOCOMPLETE_NEWS_KEYWORD = "autocomplete_news_keyword"
     SEARCH_NEWS = "..."
 
 
@@ -38,10 +39,17 @@ class AutocompleteReporter(Template):
         query_jamo = hgtk.text.decompose(query, compose_code="")
         return cls(
             id=TemplateName.AUTOCOMPLETE_REPORTER,
-            params={
-                "query": query,
-                "query_jamo": query_jamo,
-            },
+            params={"query": query, "query_jamo": query_jamo},
+        )
+
+
+class AutocompleteNewsKeyword(Template):
+    @classmethod
+    def from_query(cls, query: str):
+        query_jamo = hgtk.text.decompose(query, compose_code="")
+        return cls(
+            id=TemplateName.AUTOCOMPLETE_NEWS_KEYWORD,
+            params={"query": query, "query_jamo": query_jamo},
         )
 
 
