@@ -37,7 +37,7 @@ class Autocomplete(Template):
     def from_params(cls, params: AutocompleteParams):
         return cls(
             id=TemplateName.AUTOCOMPLETE,
-            params=params,
+            params=params.dict(exclude_none=True),
         )
 
 
