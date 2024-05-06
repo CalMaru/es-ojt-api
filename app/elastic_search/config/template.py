@@ -1,15 +1,15 @@
 from enum import Enum
 from typing import Optional
 
+import hgtk
 from pydantic import BaseModel
 
-from app.elastic_search.config.parameter import AutocompleteParams
 from app.router.dto.search import SearchRequest
 
 
 class TemplateName(Enum):
     GET_ALL_ITEMS = "get_all_items"
-    AUTOCOMPLETE = "autocomplete"
+    AUTOCOMPLETE_REPORTER = "autocomplete_reporter"
     SEARCH_NEWS = "..."
 
 
@@ -32,12 +32,16 @@ class GetAllItems(Template):
         return cls(id=TemplateName.GET_ALL_ITEMS)
 
 
-class Autocomplete(Template):
+class AutocompleteReporter(Template):
     @classmethod
-    def from_params(cls, params: AutocompleteParams):
+    def from_query(cls, query: str):
+        query_jamo = hgtk.text.decompose(query, compose_code="")
         return cls(
-            id=TemplateName.AUTOCOMPLETE,
-            params=params.dict(exclude_none=True),
+            id=TemplateName.AUTOCOMPLETE_REPORTER,
+            params={
+                "query": query,
+                "query_jamo": query_jamo,
+            },
         )
 
 
