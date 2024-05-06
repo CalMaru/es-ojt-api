@@ -1,6 +1,6 @@
 from fastapi import Query
 
-from app.router.dto.search import SearchRequest
+from app.router.dto.search import SearchQueryRequest
 
 
 def get_search_parameters(
@@ -12,8 +12,8 @@ def get_search_parameters(
     category_name: str = Query(None),
     provider_type: str = Query(),
     provider_name: str = Query(None),
-) -> SearchRequest:
-    return SearchRequest.from_request(
+) -> SearchQueryRequest:
+    return SearchQueryRequest.from_request(
         query=query,
         reporter=reporter,
         start_date=start_date,

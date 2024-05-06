@@ -1,7 +1,7 @@
 from datetime import datetime
-from typing import Optional, Union
+from typing import Optional, TypeVar, Union
 
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, Field, model_validator
 
 from app.core.exception.exception import BadRequestError
 from app.core.status_code import StatusCode
@@ -9,8 +9,10 @@ from app.model.dto.news_dto import News
 from app.model.enum.category_enum import CategoryType
 from app.model.enum.provider_enum import ProviderType
 
+T = TypeVar("T")
 
-class SearchRequest(BaseModel):
+
+class SearchQueryRequest(BaseModel):
     query: str
     reporter: Optional[str]
     start_date: datetime
@@ -19,10 +21,6 @@ class SearchRequest(BaseModel):
     category_name: Optional[str]
     provider_type: str
     provider_name: Optional[str]
-
-    @property
-    def params(self) -> dict:
-        return {}
 
     @model_validator(mode="after")
     def validate_date(self):
@@ -74,6 +72,18 @@ class SearchRequest(BaseModel):
             provider_type=provider_type,
             provider_name=provider_name,
         )
+
+
+class SearchElasticsearchRequest(BaseModel):
+    size: Optional[int] = (Field(None, gt=0),)
+    pit_id: Optional[str] = (Field(None),)
+    search_after: Optional[list[T]] = Field(None)
+    source: Optional[list[str]] = Field(None)
+    search_alternative: bool = Field(True)
+
+    def initialize(self):
+        if self.size is None:
+            self.size = 10
 
 
 class SearchResponse(BaseModel):
