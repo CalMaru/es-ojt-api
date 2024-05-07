@@ -146,12 +146,12 @@ class HighlightInfo(BaseModel):
         return ""
 
     @classmethod
-    def from_request(cls, query: str, request: SearchElasticsearchRequest):
-        tag = request.highlight_tag.upper() if request.highlight_tag is not None else None
+    def from_request(cls, query: str, tag: Union[HighlightTag, None], color: Union[str, None]):
+        tag = tag.upper() if tag is not None else None
         return cls(
             query=query,
             tag=HighlightTag[tag] if tag is not None else None,
-            color=request.highlight_color,
+            color=color,
         )
 
 
@@ -200,7 +200,7 @@ class News(BaseModel):
 
 class SearchRequest(BaseModel):
     query: str
-    reporter: Optional[str]
+    reporter: Optional[list[str]]
     start_date: datetime
     end_date: datetime
     category_type: CategoryType
@@ -213,7 +213,16 @@ class SearchRequest(BaseModel):
     search_after: Optional[list[T]]
     source: list[NewsField]
     search_alternative: bool
-    highlight: HighlightInfo
+    highlight_tag: Optional[HighlightTag]
+    highlight_color: Optional[str]
+
+    @property
+    def highlight_info(self) -> HighlightInfo:
+        return HighlightInfo.from_request(
+            self.query,
+            self.highlight_tag,
+            self.highlight_color,
+        )
 
     @property
     def params(self) -> dict:
@@ -227,7 +236,7 @@ class SearchRequest(BaseModel):
     ):
         return cls(
             query=request.query,
-            reporter=request.reporter,
+            reporter=request.reporter.split("||"),
             start_date=request.start_date,
             end_date=request.end_date,
             category_type=CategoryType[request.category_type.upper()],
@@ -240,7 +249,8 @@ class SearchRequest(BaseModel):
             search_after=es_request.search_after,
             source=es_request.source,
             search_alternative=es_request.search_alternative,
-            highlight=HighlightInfo.from_request(request.query, es_request),
+            highlight_tag=es_request.highlight_tag,
+            highlight_color=es_request.highlight_color,
         )
 
 
