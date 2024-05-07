@@ -6,6 +6,11 @@ from pydantic import BaseModel
 from app.elastic_search.config.hangeul import Hangeul
 
 
+class NewsCategory(BaseModel):
+    major: str
+    minor: str
+
+
 class Category(BaseModel):
     major: str
     minors: list[str]

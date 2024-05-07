@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, Query
 from fastapi.encoders import jsonable_encoder
 from starlette.responses import JSONResponse
 
+from app.model.dto.autocomplete_dto import AutocompleteResponse
 from app.router.dependency.dependencies import get_autocomplete_service, get_es_client
-from app.router.dto.autocomplete import AutocompleteResponse
 
 router = APIRouter(tags=["autocomplete"])
 

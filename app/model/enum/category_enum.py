@@ -1,6 +1,6 @@
 from enum import auto
 
-from app.elastic_search.config import StrEnum
+from app.model import StrEnum
 
 
 class CategoryType(StrEnum):

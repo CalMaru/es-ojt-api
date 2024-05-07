@@ -1,9 +1,8 @@
-from elasticsearch import AsyncElasticsearch
-
 from app.core.config import env_config
 from app.core.logger.elasticsearch_logger import es_logger
 from app.elastic_search.config.index import Index
 from app.elastic_search.config.template import Template
+from elasticsearch import AsyncElasticsearch
 
 
 class AsyncElasticsearchClient:

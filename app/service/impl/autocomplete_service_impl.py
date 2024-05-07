@@ -1,7 +1,7 @@
 from app.elastic_search.client import AsyncElasticsearchClient
 from app.elastic_search.config.index import Index
 from app.elastic_search.config.template import AutocompleteNewsKeyword, AutocompleteReporter
-from app.router.dto.autocomplete import AutocompleteResponse
+from app.model.dto.autocomplete_dto import AutocompleteResponse
 from app.service.autocomplete_service import AutocompleteService
 
 

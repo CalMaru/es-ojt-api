@@ -4,7 +4,7 @@ from typing import Optional
 import hgtk
 from pydantic import BaseModel
 
-from app.router.dto.search import SearchElasticsearchRequest, SearchQueryRequest
+from app.model.dto.search_dto import SearchRequest
 
 
 class TemplateName(Enum):
@@ -55,13 +55,8 @@ class AutocompleteNewsKeyword(Template):
 
 class SearchNews(Template):
     @classmethod
-    def from_requests(
-        cls,
-        request: SearchQueryRequest,
-        es_request: SearchElasticsearchRequest,
-    ):
-        params = request.dict(exclude_none=True) | es_request.dict(exclude_none=True)
+    def from_request(cls, request: SearchRequest):
         return cls(
             id=TemplateName.SEARCH_NEWS,
-            params=params,
+            params=request.params,
         )

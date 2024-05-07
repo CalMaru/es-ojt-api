@@ -9,6 +9,8 @@ class StatusCode(Enum):
     C21002 = "Bad Request - end_date has passed the system's end date"
     C21003 = "Bad Request - invalid category_type"
     C21004 = "Bad Request - invalid provider_type"
+    C21005 = "Bad Request - invalid sorting"
+    C21006 = "Bad Request - invalid highlight_tag.tag"
 
     C50000 = "System Error"
     C50001 = "Elasticsearch Error"

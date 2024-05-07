@@ -2,8 +2,8 @@ from app.elastic_search.client import AsyncElasticsearchClient
 from app.elastic_search.config.index import Index
 from app.elastic_search.config.template import GetAllItems
 from app.model.dto.category_dto import Categories, NewsCategories
+from app.model.dto.option_dto import GetOptionsResponse
 from app.model.dto.provider_dto import NewsProviders, Providers
-from app.router.dto.option import GetOptionsResponse
 from app.service.option_service import OptionService
 
 
