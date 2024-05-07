@@ -1,6 +1,6 @@
 import traceback
 
-from elasticsearch.exceptions import ElasticsearchException, ImproperlyConfigured
+from elasticsearch.exceptions import ElasticsearchException, ImproperlyConfigured, NotFoundError
 from fastapi import FastAPI, Request
 from starlette.responses import JSONResponse
 
@@ -16,6 +16,10 @@ def middleware_handler(app: FastAPI):
         except ImproperlyConfigured:
             app_logger.error(f"Elasticsearch - ImproperlyConfigured, {traceback.format_exc()}")
             return JSONResponse(content=StatusCode.C50001.response(), status_code=500)
+        except NotFoundError as e:
+            reason = e.args[2]["error"]["root_cause"][0]["reason"]
+            app_logger.error(f"Elasticsearch - NotFoundError, {traceback.format_exc()}")
+            return JSONResponse(content=StatusCode.C50002.response(reason), status_code=500)
         except ElasticsearchException:
             app_logger.error(f"Elasticsearch - ElasticsearchException, {traceback.format_exc()}")
             return JSONResponse(content=StatusCode.C50001.response(), status_code=500)

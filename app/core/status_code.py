@@ -12,6 +12,7 @@ class StatusCode(Enum):
 
     C50000 = "System Error"
     C50001 = "Elasticsearch Error"
+    C50002 = "Elasticsearch - Not Found"
 
     @property
     def code(self):
@@ -21,8 +22,10 @@ class StatusCode(Enum):
     def message(self):
         return self.value
 
-    def response(self):
+    def response(self, extra: str = None):
+        message = f"{self.message}, {extra}" if extra is not None else self.message
+
         return {
             "response_code": self.code,
-            "response_message": self.value,
+            "response_message": message,
         }
