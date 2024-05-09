@@ -18,6 +18,7 @@ elasticsearch = {version = "7.17.7", extras = ["async"]}
 aiohttp = "^3.9.5"
 nest-asyncio = "^1.6.0"
 hgtk = "^0.2.1"
+gksdudaovld = "^1.0.6b1"
 
 
 [tool.poetry.group.dev.dependencies]

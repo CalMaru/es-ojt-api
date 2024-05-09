@@ -1,6 +1,9 @@
+import hgtk.checker
+from gksdudaovld import KoEngMapper
+
 from app.elastic_search.client import AsyncElasticsearchClient
 from app.elastic_search.config.index import Index
-from app.elastic_search.config.template import AutocompleteNewsKeyword, AutocompleteReporter
+from app.elastic_search.config.template import AutocompleteKeyword, AutocompleteReporter
 from app.model.dto.autocomplete_dto import AutocompleteResponse
 from app.service.autocomplete_service import AutocompleteService
 
@@ -20,6 +23,18 @@ class AutocompleteServiceImpl(AutocompleteService):
         query: str,
         es_client: AsyncElasticsearchClient,
     ):
-        template = AutocompleteNewsKeyword.from_query(query)
+        if hgtk.checker.is_hangul(query) is False:
+            query = KoEngMapper.conv_en2ko(query)
+
+        template = AutocompleteKeyword.from_query(query)
         result = await es_client.search_template(template, Index.KEYWORD)
-        return AutocompleteResponse.from_hits(result["hits"]["hits"], "item")
+
+        count = result["hits"]["total"]["value"]
+        if count > 0:
+            return AutocompleteResponse.from_hits(result["hits"]["hits"], "item")
+
+        suggestion = result["suggest"]["spell-suggestion"][0]["options"]
+        if len(suggestion) > 0:
+            return AutocompleteResponse.from_suggestion(suggestion)
+
+        return AutocompleteResponse(suggestion=[])
