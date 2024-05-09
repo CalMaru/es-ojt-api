@@ -24,7 +24,7 @@ async def autocomplete_news_keyword(
     es_client=Depends(get_es_client),
     autocomplete_service=Depends(get_autocomplete_service),
 ):
-    result = await autocomplete_service.get_news_keyword(query, es_client)
+    result = await autocomplete_service.get_news_keywords(query, es_client)
     return JSONResponse(content=jsonable_encoder(result), status_code=200)
 
 

@@ -6,5 +6,6 @@ from app.elastic_search.config import StrEnum
 class Index(StrEnum):
     CATEGORY = auto()
     PROVIDER = auto()
-    NEWS = auto()
     REPORTER = auto()
+    KEYWORD = auto()
+    NEWS = auto()

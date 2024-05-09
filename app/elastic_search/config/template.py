@@ -10,7 +10,7 @@ from app.model.dto.search_dto import SearchRequest
 class TemplateName(Enum):
     GET_ALL_ITEMS = "get_all_items"
     AUTOCOMPLETE_REPORTER = "autocomplete_reporter"
-    AUTOCOMPLETE_NEWS_KEYWORD = "autocomplete_news_keyword"
+    AUTOCOMPLETE_NEWS_KEYWORD = "autocomplete_keyword"
     SEARCH_NEWS = "search_news"
 
 

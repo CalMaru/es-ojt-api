@@ -13,7 +13,7 @@ class AutocompleteServiceImpl(AutocompleteService):
     ) -> AutocompleteResponse:
         template = AutocompleteReporter.from_query(query)
         result = await es_client.search_template(template, Index.REPORTER)
-        return AutocompleteResponse.from_hits(result["hits"]["hits"])
+        return AutocompleteResponse.from_hits(result["hits"]["hits"], "name")
 
     async def get_news_keywords(
         self,
@@ -21,5 +21,5 @@ class AutocompleteServiceImpl(AutocompleteService):
         es_client: AsyncElasticsearchClient,
     ):
         template = AutocompleteNewsKeyword.from_query(query)
-        result = await es_client.search_template(template, Index.NEWS)
-        return AutocompleteResponse.from_hits(result["hits"]["hits"])
+        result = await es_client.search_template(template, Index.KEYWORD)
+        return AutocompleteResponse.from_hits(result["hits"]["hits"], "item")
