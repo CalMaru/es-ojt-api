@@ -16,7 +16,7 @@ async def search(
     es_client=Depends(get_es_client),
     search_service=Depends(get_search_service),
 ):
-    request = SearchRequest.from_requests(query_request, es_request)
+    request = SearchRequest(**(query_request | es_request))
     result = await search_service.search(request, es_client)
     return JSONResponse(content=jsonable_encoder(result), status_code=200)
 

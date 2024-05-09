@@ -31,3 +31,8 @@ class KeywordServiceImpl(KeywordService):
             return AutocompleteResponse.from_suggestion(suggestion)
 
         return AutocompleteResponse(suggestions=[])
+
+    async def is_terms_exist(self, query: str, es_client: AsyncElasticsearchClient):
+        template = Autocomplete.from_query(query, "item")
+        result = await es_client.search_template(template, Index.KEYWORD)
+        return result["hits"]["total"]["value"] > 0

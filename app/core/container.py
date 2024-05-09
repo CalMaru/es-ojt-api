@@ -23,6 +23,7 @@ class AppContainer(containers.DeclarativeContainer):
 
     SearchService = providers.Singleton(
         SearchServiceImpl,
+        keyword_service=KeywordService,
     )
 
     AutocompleteService = providers.Singleton(
