@@ -16,6 +16,16 @@ class Highlight(BaseModel):
     start_tag: str
     end_tag: str
 
+    @classmethod
+    def from_requests(cls, start_tag: str, end_tag: str):
+        if start_tag is None or end_tag is None:
+            return None
+
+        return cls(
+            start_tag=start_tag,
+            end_tag=end_tag,
+        )
+
 
 class News(BaseModel):
     news_id: Optional[str]
@@ -165,17 +175,47 @@ class SearchRequest(BaseModel):
     provider_type: Optional[str]
     provider_location: Optional[str]
     provider_name: Optional[str]
-    sorting: NewsSort
+    sort_key: str
+    sort_value: str
     size: int
     pit_id: Optional[str]
     search_after: Optional[list[T]]
     source: list[NewsField]
     search_alternative: bool
-    highlight: Optional[Highlight]
+    start_tag: Optional[str]
+    end_tag: Optional[str]
 
     @property
     def params(self) -> dict:
         return self.dict(exclude_none=True)
+
+    @classmethod
+    def from_requests(
+        cls,
+        request: SearchQueryRequest,
+        es_request: SearchElasticsearchRequest,
+    ):
+        highlight = es_request.highlight
+        return cls(
+            query=request.query,
+            reporter=es_request.reporter,
+            start_date=request.start_date,
+            end_date=request.end_date,
+            category_major=request.category_major,
+            category_minor=request.category_minor,
+            provider_type=request.provider_type,
+            provider_location=request.provider_location,
+            provider_name=request.provider_name,
+            sort_key=request.sorting.get_key(),
+            sort_value=request.sorting.get_value(),
+            size=es_request.size,
+            pit_id=request.pit_id,
+            search_after=es_request.search_after,
+            source=es_request.source,
+            search_alternative=es_request.search_alternative,
+            start_tag=highlight.start_tag if highlight is not None else None,
+            end_tag=highlight.end_tag if highlight is not None else None,
+        )
 
 
 class SearchResponse(BaseModel):
@@ -187,7 +227,7 @@ class SearchResponse(BaseModel):
 
     @classmethod
     def from_result(cls, result: dict, alternative: Optional[str], request: SearchRequest):
-        news, fields, highlight = [], request.fields, request.highlight
+        news, fields, highlight = [], request.fields, Highlight.from_requests(request.start_tag, request.end_tag)
         for hit in result["hits"]["hits"]:
             news.append(News.from_hit(hit, fields, highlight))
 

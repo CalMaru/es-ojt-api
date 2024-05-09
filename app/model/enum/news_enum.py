@@ -22,6 +22,16 @@ class NewsSort(StrEnum):
     LATEST = auto()
     OLD = auto()
 
+    def get_key(self) -> str:
+        return self.name.lower()
+
+    def get_value(self) -> str:
+        if self.name == NewsSort.SCORE:
+            return "desc"
+        elif self.name == NewsSort.LATEST:
+            return "desc"
+        return "asc"
+
 
 class HighlightTag(StrEnum):
     STRONG = auto()

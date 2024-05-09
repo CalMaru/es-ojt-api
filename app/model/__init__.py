@@ -12,7 +12,7 @@ class StrEnum(str, Enum):
         return self.name
 
     @classmethod
-    def has_key(cls, key: str):
+    def has_key(cls, key: str) -> bool:
         return key.upper() in cls.__members__
 
     @classmethod
