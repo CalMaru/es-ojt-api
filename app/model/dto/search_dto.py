@@ -242,7 +242,7 @@ class SearchResponse(BaseModel):
     pit_id: str
     count: int
     news: list[News]
-    search_after: list[T]
+    search_after: Optional[list[T]]
     alternative: Optional[str]
 
     @classmethod

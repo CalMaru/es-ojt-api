@@ -63,6 +63,7 @@ class SearchNews(Template):
         return cls(
             id=TemplateName.SEARCH_NEWS,
             params={
+                "size": request.size,
                 "pit_id": request.pit_id,
                 "page": True if request.search_after else False,
                 "search_after": request.search_after,

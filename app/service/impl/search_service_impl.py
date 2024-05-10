@@ -22,7 +22,7 @@ class SearchServiceImpl(SearchService):
         if request.pit_id is None:
             request.pit_id = await es_client.open_point_im_time(Index.NEWS)
 
-        if self.is_alternative_search(request, es_client):
+        if await self.is_alternative_search(request, es_client):
             request.query = await self.get_alternative_query(request, es_client)
             alternated_query = request.query
 
