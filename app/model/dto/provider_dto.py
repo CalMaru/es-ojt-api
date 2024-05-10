@@ -14,6 +14,9 @@ class Provider(BaseModel):
 
     @classmethod
     def from_source(cls, provider: dict):
+        if provider is None:
+            return None
+
         return cls(
             name=provider["name"],
             type=provider["type"],

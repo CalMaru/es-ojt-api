@@ -3,7 +3,7 @@ from gksdudaovld import KoEngMapper
 
 from app.elastic_search.client import AsyncElasticsearchClient
 from app.elastic_search.config.index import Index
-from app.elastic_search.config.template import Autocomplete
+from app.elastic_search.template.template import Autocomplete
 from app.model.dto.autocomplete_dto import AutocompleteResponse
 from app.service.keyword_service import KeywordService
 

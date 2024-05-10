@@ -12,6 +12,12 @@ class NewsField(StrEnum):
     REPORTER = auto()
     DATE = auto()
 
+    @property
+    def field(self) -> str:
+        if self.name == NewsField.NEWS_ID:
+            return "id"
+        return self.name.lower()
+
     @classmethod
     def list(cls):
         return [c for c in cls]
@@ -23,7 +29,9 @@ class NewsSort(StrEnum):
     OLD = auto()
 
     def get_key(self) -> str:
-        return self.name.lower()
+        if self.name == NewsSort.SCORE:
+            return "_score"
+        return "date"
 
     def get_value(self) -> str:
         if self.name == NewsSort.SCORE:

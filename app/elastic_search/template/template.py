@@ -4,6 +4,7 @@ import hgtk
 from pydantic import BaseModel
 
 from app.elastic_search.config import StrEnum
+from app.elastic_search.template.query import BoolShouldQuery, NestedQuery, RangeDateQuery
 from app.model.dto.search_dto import SearchRequest
 
 
@@ -49,7 +50,29 @@ class Autocomplete(Template):
 class SearchNews(Template):
     @classmethod
     def from_request(cls, request: SearchRequest):
+        category = NestedQuery(path="category", terms=request.category).query
+        provider = NestedQuery(path="provider", terms=request.provider).query
+        reporter = BoolShouldQuery(terms=request.reporter).query
+        date = RangeDateQuery(start=request.start_date, end=request.end_date).query
+
+        must = []
+        for item in (category, provider, reporter, date):
+            if item is not None:
+                must.append(item)
+
         return cls(
             id=TemplateName.SEARCH_NEWS,
-            params=request.params,
+            params={
+                "pit_id": request.pit_id,
+                "page": True if request.search_after else False,
+                "search_after": request.search_after,
+                "source": request.sources,
+                "must": must,
+                "query": request.query,
+                "sort_key": request.sort_key,
+                "sort_value": request.sort_value,
+                "highlight": request.using_highlight,
+                "start_tag": request.start_tag,
+                "end_tag": request.end_tag,
+            },
         )

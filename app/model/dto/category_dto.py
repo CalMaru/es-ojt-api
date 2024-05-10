@@ -10,6 +10,13 @@ class NewsCategory(BaseModel):
     major: str
     minor: str
 
+    @classmethod
+    def from_dict(cls, category: dict):
+        return cls(
+            major=category["major"],
+            minor=category["minor"],
+        )
+
 
 class Category(BaseModel):
     major: str

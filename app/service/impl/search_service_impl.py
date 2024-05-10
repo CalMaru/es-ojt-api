@@ -2,7 +2,7 @@ from typing import Union
 
 from app.elastic_search.client import AsyncElasticsearchClient
 from app.elastic_search.config.index import Index
-from app.elastic_search.config.template import SearchNews
+from app.elastic_search.template.template import SearchNews
 from app.model.dto.search_dto import SearchRequest, SearchResponse
 from app.service.keyword_service import KeywordService
 from app.service.search_service import SearchService
@@ -48,13 +48,14 @@ class SearchServiceImpl(SearchService):
         request: SearchRequest,
         es_client: AsyncElasticsearchClient,
     ) -> Union[str, None]:
-        alternatives = self.keyword_service.autocomplete(
+        alternatives = await self.keyword_service.autocomplete(
             query=request.query,
             index=Index.KEYWORD,
             key="item",
             es_client=es_client,
-        ).suggestions
+        )
+        suggestions = alternatives.suggestions
 
-        if len(alternatives) == 0:
+        if len(suggestions) == 0:
             return None
-        return alternatives[0]
+        return suggestions[0]

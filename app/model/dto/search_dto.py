@@ -28,18 +28,18 @@ class Highlight(BaseModel):
 
 
 class News(BaseModel):
-    news_id: Optional[str]
+    news_id: Optional[int]
     title: Optional[str]
     content: Optional[str]
-    provider: Optional[list[Provider]]
+    provider: Optional[Provider]
     category: Optional[list[NewsCategory]]
     reporter: Optional[list[str]]
     date: Optional[str]
 
     @classmethod
-    def from_hit(cls, hit: dict, fields: list[NewsField], highlight: Optional[Highlight]):
+    def from_hit(cls, hit: dict, highlight: Optional[Highlight]):
         source = hit["_source"]
-        hit_highlight = hit.get(hit["highlight"], {})
+        hit_highlight = hit.get("highlight", {})
 
         title = hit_highlight.get("title", source.get("title", None))
         content = hit_highlight.get("content", source.get("content", None))
@@ -49,24 +49,20 @@ class News(BaseModel):
             for query in highlight.query.split(" "):
                 content = content.replace(query, f"{start_tag}{query}{end_tag}")
 
-        if NewsField.PROVIDER in fields:
-            providers = [Provider.from_source(provider) for provider in source["provider"]]
-        else:
-            providers = None
+        categories = [NewsCategory.from_dict(category) for category in source.get("category", [])]
 
-        if NewsField.CATEGORY in fields:
-            categories = [NewsCategory.from_source(category) for category in source["category"]]
-        else:
-            categories = None
+        reporter = source.get("reporter", None)
+        if isinstance(reporter, str):
+            reporter = [reporter]
 
         return cls(
-            news_id=hit["_id"] if NewsField.NEWS_ID in fields else None,
-            title=title if NewsField.TITLE in fields else None,
-            content=content if NewsField.CONTENT in fields else None,
-            provider=providers,
-            category=categories,
-            reporter=source["reporter"] if NewsField.REPORTER in fields else None,
-            date=source["date"] if NewsField.DATE in fields else None,
+            news_id=source.get("id", None),
+            title=title,
+            content=content,
+            provider=Provider.from_source(source.get("provider", None)),
+            category=categories if len(categories) > 0 else None,
+            reporter=reporter,
+            date=source.get("date", None),
         )
 
 
@@ -186,8 +182,32 @@ class SearchRequest(BaseModel):
     end_tag: Optional[str]
 
     @property
-    def params(self) -> dict:
-        return self.dict(exclude_none=True)
+    def sources(self) -> list[str]:
+        return [source.field for source in self.source]
+
+    @property
+    def category(self) -> Union[list[dict], None]:
+        category = []
+        if self.category_major:
+            category.append({"category.major": self.category_major})
+        if self.category_minor:
+            category.append({"category.minor": self.category_major})
+        return category if len(category) > 0 else None
+
+    @property
+    def provider(self) -> Union[list[dict], None]:
+        provider = []
+        if self.provider_type:
+            provider.append({"provider.type": self.provider_type})
+        if self.provider_location:
+            provider.append({"provider.location": self.provider_location})
+        if self.provider_name:
+            provider.append({"provider.name": self.provider_name})
+        return provider if len(provider) > 0 else None
+
+    @property
+    def using_highlight(self) -> bool:
+        return self.start_tag is not None and self.end_tag is not None
 
     @classmethod
     def from_requests(
@@ -198,7 +218,7 @@ class SearchRequest(BaseModel):
         highlight = es_request.highlight
         return cls(
             query=request.query,
-            reporter=es_request.reporter,
+            reporter=request.reporter,
             start_date=request.start_date,
             end_date=request.end_date,
             category_major=request.category_major,
@@ -209,7 +229,7 @@ class SearchRequest(BaseModel):
             sort_key=request.sorting.get_key(),
             sort_value=request.sorting.get_value(),
             size=es_request.size,
-            pit_id=request.pit_id,
+            pit_id=es_request.pit_id,
             search_after=es_request.search_after,
             source=es_request.source,
             search_alternative=es_request.search_alternative,
@@ -227,14 +247,16 @@ class SearchResponse(BaseModel):
 
     @classmethod
     def from_result(cls, result: dict, alternative: Optional[str], request: SearchRequest):
-        news, fields, highlight = [], request.fields, Highlight.from_requests(request.start_tag, request.end_tag)
-        for hit in result["hits"]["hits"]:
-            news.append(News.from_hit(hit, fields, highlight))
+        news, search_after, highlight = [], None, Highlight.from_requests(request.start_tag, request.end_tag)
 
-        search_after = result["hits"]["hits"][-1]["sort"] if len(news) > 0 else None
+        for hit in result["hits"]["hits"]:
+            news.append(News.from_hit(hit, highlight))
+
+        if len(news) > 0:
+            search_after = result["hits"]["hits"][-1].get("sort", None)
 
         return cls(
-            pit_id=result["pit_id"],
+            pit_id=request.pit_id,
             count=result["hits"]["total"]["value"],
             news=news,
             search_after=search_after,

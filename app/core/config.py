@@ -17,15 +17,12 @@ class EnvSettings(BaseSettings):
     # Elasticsearch Config
     ES_HOST: str = Field(default="localhost", env="ES_HOST")
     ES_PORT: int = Field(default=9200, env="ES_PORT")
-    ES_USERNAME: str = Field(default="elastic", env="ES_USERNAME")
-    ES_PASSWORD: str = Field(default="42maru", env="ES_PASSWORD")
     ES_PIT_TIME: str = Field(default="1m", env="ES_PIT_TIME")
 
     @property
     def ES_CONFIG(self) -> dict:
         return {
             "hosts": f"http://{self.ES_HOST}:{self.ES_PORT}",
-            "http_auth": (self.ES_USERNAME, self.ES_PASSWORD),
             "scheme": "http",
         }
 
