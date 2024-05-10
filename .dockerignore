@@ -44,3 +44,4 @@ poetry.lock
 ##### Data #####
 data/
 jupyter notebook/
+log/
