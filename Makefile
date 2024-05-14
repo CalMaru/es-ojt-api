@@ -10,13 +10,10 @@ else
 endif
 
 # --------------------------
-.PHONY: es-ojt-api dev-all dev down stop help
+.PHONY: es-ojt-api dev down stop help
 
 es-ojt-api: ## Start es-ojt-api container.
-	$(DOCKER_COMPOSE_COMMAND) ${COMPOSE} up -d --build
-
-dev-all: ## Start es-ojt-api and elasticsearch container.
-	$(DOCKER_COMPOSE_COMMAND) -f docker-compose-dev-all.yml up -d --build
+	$(DOCKER_COMPOSE_COMMAND) ${COMPOSE} up -d
 
 dev: ## Start es-ojt-api container.
 	$(DOCKER_COMPOSE_COMMAND) -f docker-compose-dev.yml up -d --build
