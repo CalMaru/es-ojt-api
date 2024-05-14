@@ -4,8 +4,8 @@ from app.elastic_search.config import StrEnum
 
 
 class Index(StrEnum):
-    CATEGORY = auto()
-    PROVIDER = auto()
-    REPORTER = auto()
-    KEYWORD = auto()
-    NEWS = auto()
+    CATEGORY = "cal-category"
+    PROVIDER = "cal-provider"
+    REPORTER = "cal-reporter"
+    KEYWORD = "cal-keyword"
+    NEWS = "cal-news"

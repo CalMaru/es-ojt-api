@@ -9,9 +9,9 @@ from app.model.dto.search_dto import SearchRequest
 
 
 class TemplateName(StrEnum):
-    GET_ALL_ITEMS = "get_all_items"
-    AUTOCOMPLETE = "autocomplete"
-    SEARCH_NEWS = "search_news"
+    GET_ALL_ITEMS = "cal-get-all-items"
+    AUTOCOMPLETE = "cal-autocomplete"
+    SEARCH_NEWS = "cal-search-news"
 
 
 class Template(BaseModel):
