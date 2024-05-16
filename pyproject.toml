@@ -19,6 +19,7 @@ aiohttp = "^3.9.5"
 nest-asyncio = "^1.6.0"
 hgtk = "^0.2.1"
 gksdudaovld = "^1.0.6b1"
+hangul-jamo = "^1.0.1"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -1,4 +1,4 @@
-import hgtk
+import hangul_jamo
 from pydantic import BaseModel
 
 
@@ -13,4 +13,4 @@ class AutocompleteResponse(BaseModel):
 
     @classmethod
     def from_suggestion(cls, options: list[dict]):
-        return cls(suggestions=[hgtk.text.compose(option["text"], compose_code="") for option in options])
+        return cls(suggestions=[hangul_jamo.compose(option["text"]) for option in options])
