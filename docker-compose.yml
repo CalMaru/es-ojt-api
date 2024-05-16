@@ -1,18 +1,18 @@
 version: "3.8"
+
 services:
-  es-ojt-api:
-    container_name: es-ojt-api
+  es-ojt-api-cal:
+    container_name: es-ojt-api-cal
     build:
       dockerfile: Dockerfile
     environment:
       TZ: Asia/Seoul
     env_file:
-      - es-ojt-api.env
+      - .env
     volumes:
       - ./app:/es-ojt-api/app
-      - ./log:/es-ojt-api/log
       - ./gunicorn.config.py:/es-ojt-api/gunicorn.config.py:ro
-    ports:
-      - "8000:8000"
+      - ./asgi.py:/es-ojt-api/asgi.py:ro
+      - /mnt/disks/data/qa42/esojt/api/cal/log:/es-ojt-api/log
+    command: gunicorn -n es-ojt-api-cal -c gunicorn.config.py
     network_mode: host
-    command: gunicorn -n es-ojt-api -c gunicorn.config.py
