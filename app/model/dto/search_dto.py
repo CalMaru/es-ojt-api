@@ -37,17 +37,20 @@ class News(BaseModel):
     date: Optional[str]
 
     @classmethod
-    def from_hit(cls, hit: dict, highlight: Optional[Highlight]):
+    def from_hit(cls, hit: dict, highlight: Optional[Highlight], query: str):
         source = hit["_source"]
         hit_highlight = hit.get("highlight", {})
 
         title = hit_highlight.get("title", source.get("title", None))
         content = hit_highlight.get("content", source.get("content", None))
 
+        if isinstance(title, list):
+            title = title[0]
+
         if highlight:
             start_tag, end_tag = highlight.start_tag, highlight.end_tag
-            for query in highlight.query.split(" "):
-                content = content.replace(query, f"{start_tag}{query}{end_tag}")
+            for split_query in query.split(" "):
+                content = content.replace(split_query, f"{start_tag}{split_query}{end_tag}")
 
         categories = [NewsCategory.from_dict(category) for category in source.get("category", [])]
 
@@ -250,7 +253,7 @@ class SearchResponse(BaseModel):
         news, search_after, highlight = [], None, Highlight.from_requests(request.start_tag, request.end_tag)
 
         for hit in result["hits"]["hits"]:
-            news.append(News.from_hit(hit, highlight))
+            news.append(News.from_hit(hit, highlight, request.query))
 
         if len(news) > 0:
             search_after = result["hits"]["hits"][-1].get("sort", None)
