@@ -14,17 +14,20 @@ class NestedQuery(BaseModel):
             return None
 
         return {
-            "nested": self.path,
-            "query": {
-                "bool": {
-                    "must": [{"term": {term}} for term in self.terms],
+            "nested": {
+                "path": self.path,
+                "query": {
+                    "bool": {
+                        "must": [{"term": term} for term in self.terms],
+                    },
                 },
-            },
+            }
         }
 
 
 class BoolShouldQuery(BaseModel):
-    terms: Optional[list[dict]]
+    field: str
+    terms: Optional[list[str]]
 
     @property
     def query(self) -> Union[dict, None]:
@@ -33,7 +36,7 @@ class BoolShouldQuery(BaseModel):
 
         return {
             "bool": {
-                "should": [{"term": {term}} for term in self.terms],
+                "should": [{"term": {self.field: term}} for term in self.terms],
             },
         }
 

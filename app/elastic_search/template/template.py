@@ -52,7 +52,7 @@ class SearchNews(Template):
     def from_request(cls, request: SearchRequest):
         category = NestedQuery(path="category", terms=request.category).query
         provider = NestedQuery(path="provider", terms=request.provider).query
-        reporter = BoolShouldQuery(terms=request.reporter).query
+        reporter = BoolShouldQuery(field="reporter", terms=request.reporter).query
         date = RangeDateQuery(start=request.start_date, end=request.end_date).query
 
         must = []

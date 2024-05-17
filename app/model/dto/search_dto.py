@@ -191,7 +191,7 @@ class SearchRequest(BaseModel):
         if self.category_major:
             category.append({"category.major": self.category_major})
         if self.category_minor:
-            category.append({"category.minor": self.category_major})
+            category.append({"category.minor": self.category_minor})
         return category if len(category) > 0 else None
 
     @property
